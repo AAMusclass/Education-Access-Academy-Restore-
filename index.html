@@ -1736,13 +1736,59 @@ function tabContent(c){
  if(t==='learn')
  return `
   <div class="content">
-   <h3>LEARN — Study Notes</h3>
-   <p>${esc(c.learn)}</p>
 
-   <div class="callout">
+   <h3>LEARN — Study Notes</h3>
+
+   <div class="card">
+    <p>${esc(c.learn)}</p>
+   </div>
+
+   ${
+    c.examples?.length
+    ? `
+      <div class="card" style="margin-top:14px">
+       <div class="eyebrow">WORKED EXAMPLES</div>
+       <h3>See the Mathematics in Action</h3>
+
+       ${c.examples.map((ex,i)=>`
+        <div class="card"
+             style="margin-top:12px;border-left:4px solid var(--gold,#d6b25e)">
+
+         <h4>${i+1}. ${esc(ex.title)}</h4>
+
+         <p>
+          <strong>Problem:</strong><br>
+          ${esc(ex.problem)}
+         </p>
+
+         <div class="callout">
+          <strong>Step-by-step working</strong>
+
+          <ol>
+           ${ex.working.map(step=>`
+            <li>${esc(step)}</li>
+           `).join('')}
+          </ol>
+         </div>
+
+         <div class="notice" style="margin-top:10px">
+          <strong>Why this method?</strong><br>
+          ${esc(ex.reasoning)}
+         </div>
+
+        </div>
+       `).join('')}
+
+      </div>
+     `
+    : ''
+   }
+
+   <div class="callout" style="margin-top:14px">
     <b>Education Access rule:</b>
     Explain the idea in your own words before moving to practice.
    </div>
+
   </div>
  `;
 
