@@ -861,23 +861,270 @@ function genericContent(s,w){
 
 function mathWeek1(){
  return {
-  mission:'Mathematics Is Everywhere — become a Mathematics Detective.',
+  mission:
+   'CONCEPT OF MATHEMATICS — Discover what mathematics is, why people use it, and how mathematical thinking helps us make decisions.',
 
-  learn:'Mathematics is a field of reasoning about numbers, quantities, patterns, relationships, shapes, measurement and logical ideas. It helps people describe, measure, compare, calculate, predict and solve problems. It appears in money, shopping, time, distance, cooking, construction, business, transport, technology and everyday decisions.',
+  learn:
+   `Mathematics is more than doing calculations. It is a way of thinking logically about numbers, quantities, patterns, relationships, shapes, measurements and situations.
 
-  try:'Brielle has TZS 10,000. Bread costs TZS 2,000, milk TZS 2,500 and fruit TZS 1,500. How much remains? Explain why subtraction is used and show the working.',
+   In this first unit, you will learn to recognise mathematics in ordinary life and explain why mathematical reasoning is useful.
 
-  practice:[
-   'Find five things at home that involve mathematics.',
-   'A family has TZS 12,000 and shares it equally among 3 people. How much does each receive?',
-   'School starts at 7:30 and a lesson lasts 45 minutes. What time does it finish?',
-   'A shop sells the same item at two different prices. Explain what information you need before choosing.',
-   'Create three mathematical situations from your home or community.'
+   Mathematics helps us:
+   • count and compare quantities;
+   • measure length, time, mass and capacity;
+   • calculate costs and change;
+   • organise information;
+   • recognise patterns and relationships;
+   • estimate and check whether an answer makes sense;
+   • solve problems systematically;
+   • communicate reasoning clearly.
+
+   A mathematical answer should not only tell us WHAT the answer is. Good mathematical thinking also explains HOW we obtained it and WHY the method makes sense.`,
+
+  examples:[
+   {
+    title:'Example 1 — Shopping',
+    problem:'Brielle has TZS 10,000. She buys bread for TZS 2,000 and milk for TZS 2,500. How much money remains?',
+    working:[
+     'Total money = TZS 10,000',
+     'Money spent = TZS 2,000 + TZS 2,500',
+     'Money spent = TZS 4,500',
+     'Money remaining = TZS 10,000 − TZS 4,500',
+     'Money remaining = TZS 5,500'
+    ],
+    reasoning:
+     'Addition finds the total amount spent. Subtraction finds what remains after spending.'
+   },
+
+   {
+    title:'Example 2 — Time',
+    problem:'A lesson begins at 7:30 a.m. and lasts 45 minutes. When does it finish?',
+    working:[
+     'Starting time = 7:30 a.m.',
+     '30 minutes after 7:30 = 8:00 a.m.',
+     '15 more minutes = 8:15 a.m.'
+    ],
+    reasoning:
+     'Time calculations require us to understand the relationship between hours and minutes.'
+   },
+
+   {
+    title:'Example 3 — Sharing',
+    problem:'A family has TZS 12,000 and shares it equally among 3 people. How much does each person receive?',
+    working:[
+     'Total = TZS 12,000',
+     'Number of people = 3',
+     'Each share = 12,000 ÷ 3',
+     'Each person receives = TZS 4,000'
+    ],
+    reasoning:
+     'Division is appropriate because one quantity is being shared equally.'
+   },
+
+   {
+    title:'Example 4 — Checking an Answer',
+    problem:'A learner calculates 398 + 205 and obtains 603. Is the answer reasonable?',
+    working:[
+     '398 is close to 400.',
+     '205 is close to 200.',
+     '400 + 200 = 600.',
+     '603 is close to 600.'
+    ],
+    reasoning:
+     'The answer is reasonable because an estimate gives approximately 600.'
+   }
   ],
 
-  voice:'Explain one thing in your home that would be difficult to use, measure, compare or manage without mathematics. Then explain the mathematics involved.',
+  try:
+   `MATHEMATICS DETECTIVE
 
-  apply:'MY COMMUNITY — MATHEMATICS EVIDENCE: choose shopping, transport, cooking, electricity, water, farming, construction, school or business. Identify the numbers, mathematical idea/operation, answer and reasoning.'
+   Look around your home, school or neighbourhood.
+
+   Find THREE situations where mathematics is being used.
+
+   For each situation record:
+   1. What is happening?
+   2. What quantities or measurements are involved?
+   3. What mathematical operation, relationship or idea is being used?
+   4. Why is mathematics useful in that situation?
+
+   Example areas:
+   shopping, transport, cooking, construction, time, money, water, electricity, sport, farming or business.`,
+
+  parentGuide:
+   `PARENT–LEARNER CONVERSATION
+
+   Do not begin by giving the learner the answer.
+
+   Ask:
+
+   1. Where did you see mathematics being used today?
+   2. What information did you need?
+   3. What were you trying to find out?
+   4. Which mathematical operation or relationship did you choose?
+   5. Why did you choose it?
+   6. How could you check your answer?
+   7. Can you create a similar problem for me?
+
+   Parent role:
+   Ask questions, listen to the learner's reasoning and allow the learner to correct mistakes. The purpose is mathematical thinking, not simply obtaining the correct answer.`,
+
+  guidedPractice:[
+   {
+    q:'A shopkeeper has TZS 20,000. A customer buys goods costing TZS 7,500. How much change should the customer receive?',
+    answer:'TZS 12,500',
+    method:'20,000 − 7,500 = 12,500'
+   },
+   {
+    q:'A water container holds 20 litres. It already contains 7 litres. How many more litres are needed to fill it?',
+    answer:'13 litres',
+    method:'20 − 7 = 13'
+   },
+   {
+    q:'A journey starts at 9:15 a.m. and takes 1 hour 30 minutes. What time does it finish?',
+    answer:'10:45 a.m.',
+    method:'9:15 + 1 hour = 10:15; + 30 minutes = 10:45'
+   }
+  ],
+
+  practice:[
+   'Write five situations in which mathematics is used at home.',
+   'A family spends TZS 8,500 on food and TZS 3,000 on transport. What is the total?',
+   'A 24-metre rope is divided equally into 6 pieces. What is the length of each piece?',
+   'A school has 240 exercise books and distributes them equally among 8 classes. How many books does each class receive?',
+   'Create your own real-life mathematics problem and solve it.'
+  ],
+
+  challenge:
+   `THE MATHEMATICS DETECTIVE CHALLENGE
+
+   A shop has TZS 50,000 available to buy supplies.
+
+   Exercise books cost TZS 2,500 each.
+   Pens cost TZS 500 each.
+
+   The shopkeeper wants to buy 12 exercise books and 20 pens.
+
+   1. Calculate the cost of the exercise books.
+   2. Calculate the cost of the pens.
+   3. Calculate the total cost.
+   4. Calculate the money remaining.
+   5. Explain how you know your answer is reasonable.
+   6. Change one quantity and create a new problem for another learner.`,
+
+  voice:
+   `VOICE STUDIO — TEACH MATHEMATICS
+
+   Imagine that you are teaching a younger learner.
+
+   Explain:
+
+   “What is mathematics, and where do we use it in everyday life?”
+
+   Your explanation must include:
+   1. what mathematics means to you;
+   2. two real-life examples;
+   3. one mathematical calculation;
+   4. an explanation of why the calculation is useful.
+
+   Speak for approximately 60–90 seconds.
+
+   Do not simply read the lesson. Explain it in your own words.`,
+
+  apply:
+   `MY COMMUNITY MATHEMATICS INVESTIGATION
+
+   Choose ONE real situation:
+
+   • shopping
+   • transport
+   • cooking
+   • water
+   • electricity
+   • construction
+   • farming
+   • school
+   • sport
+   • business
+
+   Collect at least three numerical facts.
+
+   Then produce:
+
+   1. Situation
+   2. Information collected
+   3. Mathematical operation or relationship
+   4. Calculation
+   5. Answer
+   6. Explanation of what the answer means
+   7. How you checked the answer
+
+   This becomes your first Mathematics Evidence submission.`,
+
+  knowledgeCheck:[
+   {
+    q:'Which statement best describes mathematics?',
+    options:[
+     'A subject that only involves memorising formulas',
+     'A way of reasoning about quantities, patterns, relationships and problems',
+     'A subject used only at school',
+     'A method used only for money'
+    ],
+    answer:1
+   },
+   {
+    q:'You have TZS 15,000 and spend TZS 6,500. Which operation finds the amount remaining?',
+    options:['Addition','Subtraction','Multiplication','Division'],
+    answer:1
+   },
+   {
+    q:'Why is estimation useful?',
+    options:[
+     'It always gives the exact answer',
+     'It replaces all calculations',
+     'It helps us judge whether an answer is reasonable',
+     'It is only used in examinations'
+    ],
+    answer:2
+   },
+   {
+    q:'If 18 books are shared equally among 3 learners, which operation should be used?',
+    options:['Addition','Subtraction','Multiplication','Division'],
+    answer:3
+   }
+  ],
+
+  reflection:
+   `REFLECTION
+
+   Complete these sentences:
+
+   • Before this lesson, I thought mathematics was...
+   • I now understand that mathematics...
+   • One place where I noticed mathematics today was...
+   • The part I found easiest was...
+   • The part I need to practise is...
+   • One mathematical question I would like to investigate is...`,
+
+  mastery:
+   `MASTERY EVIDENCE
+
+   You are ready to move beyond this unit when you can:
+
+   ✓ explain what mathematics is in your own words;
+   ✓ identify mathematics in everyday situations;
+   ✓ choose an appropriate operation for a simple problem;
+   ✓ show your working;
+   ✓ explain why your method makes sense;
+   ✓ estimate or check whether an answer is reasonable;
+   ✓ create and solve your own real-life mathematical problem;
+   ✓ explain one mathematical idea verbally.
+
+   Mastery levels:
+   EMERGING — needs substantial guidance
+   DEVELOPING — can solve with some support
+   SECURE — works independently and explains reasoning
+   MASTERED — applies the idea confidently to a new situation`
  };
 }
 
