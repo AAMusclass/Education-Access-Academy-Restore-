@@ -333,60 +333,286 @@ function masteryFor(k=unitKey()){
 }
 
 function genericContent(s,w){
- const subj=SUBJECTS[s];
- const title=subj.weeks[w-1];
+/* =========================
+   CURRICULUM CONTENT ENGINE
+   6 SUBJECTS × 15 WEEKS
+   ========================= */
 
- const themes={
-  mathematics:'Use mathematical language, relationships, quantities and logical reasoning in a real situation.',
-  kiswahili:'Use Kiswahili accurately to listen, speak, read, analyse, write and revise.',
-  english:'Use English to understand information and communicate clearly in speech and writing.',
-  business:'Think like a young entrepreneur: identify needs, resources, value, costs and responsible decisions.',
-  geography:'Connect people, place, environment, location and evidence through geographic thinking.',
-  history:'Reason from evidence about people, time, place, change, causes, consequences and values.'
- };
+const CURRICULUM = {
+
+ mathematics: [
+  {
+   mission:"Mathematics Is Everywhere — become a Mathematics Detective.",
+   learn:"Mathematics helps us describe quantities, compare values, recognise patterns, measure objects, calculate costs and make logical decisions. It appears in money, time, distance, cooking, construction, transport, business and everyday planning.",
+   try:"Brielle has TZS 10,000. Bread costs TZS 2,000, milk TZS 2,500 and fruit TZS 1,500. How much remains? Show the calculation and explain why subtraction is appropriate.",
+   practice:["Find five situations at home that involve mathematics.","Share TZS 12,000 equally among 3 people.","A lesson begins at 7:30 and lasts 45 minutes. What time does it finish?","Compare two prices and explain what information is needed before choosing.","Create three mathematical situations from your community."],
+   voice:"Explain one situation at home where mathematics is necessary. State the mathematical idea involved and explain why it matters.",
+   apply:"Create a Mathematics Evidence Card using shopping, transport, cooking, water, electricity, construction, school or business. Record the numbers, operation, answer and reasoning."
+  },
+  {
+   mission:"Number Universe: Rational, Irrational & Real Numbers.",
+   learn:"Explore the number system and the relationship between natural numbers, integers, rational numbers, irrational numbers and real numbers. Learn to classify numbers and explain why a number belongs to a particular group.",
+   try:"Classify 5, -3, 1/2, 0.75 and √2. Explain your reasoning.",
+   practice:["Define rational number.","Give three examples of integers.","Give two examples of irrational numbers.","Place selected numbers on a number line.","Explain how rational and irrational numbers differ."],
+   voice:"Teach a younger learner the difference between rational and irrational numbers.",
+   apply:"Create a Number Classification Chart using examples from school, money, measurement and science."
+  },
+  {
+   mission:"Decimals, Recurring Decimals & Number Lines.",
+   learn:"Develop understanding of decimal notation, terminating decimals, recurring decimals and their position on number lines. Connect decimals to fractions, money and measurement.",
+   try:"Convert 0.5, 0.25 and 0.75 into fractions and place them on a number line.",
+   practice:["Convert fractions to decimals.","Identify terminating decimals.","Identify recurring decimals.","Order five decimal numbers.","Explain decimal values using Tanzanian money."],
+   voice:"Explain how a decimal represents part of a whole.",
+   apply:"Build a decimal number line using prices, measurements or distances."
+  },
+  {
+   mission:"Inequalities & Absolute Value.",
+   learn:"Use inequality symbols to compare quantities and understand absolute value as distance from zero on a number line.",
+   try:"Compare -5 and -2. Which is greater? Explain using a number line.",
+   practice:["Use <, > and = correctly.","Order positive and negative numbers.","Find absolute values.","Represent simple inequalities.","Create two real-life inequality examples."],
+   voice:"Explain why -2 is greater than -5.",
+   apply:"Create an inequality investigation using temperature, money, height or distance."
+  },
+  {
+   mission:"Ratios & Proportions in Real Life.",
+   learn:"Ratios compare quantities while proportions describe equivalent relationships. Apply them to recipes, maps, mixtures, sharing and everyday decisions.",
+   try:"A juice mixture uses 2 cups of concentrate for every 5 cups of water. How much water is needed for 6 cups of concentrate?",
+   practice:["Write ratios in three forms.","Simplify ratios.","Find equivalent ratios.","Solve a proportion.","Create a recipe ratio."],
+   voice:"Explain the difference between a ratio and a proportion.",
+   apply:"Design a real-life proportion problem involving food, transport, money or measurement."
+  },
+  {
+   mission:"Approximation, Estimation & Significant Figures.",
+   learn:"Approximation helps us work efficiently when exact values are unnecessary. Explore rounding, estimation and significant figures.",
+   try:"Estimate the total cost of 7 items priced around TZS 2,950 each.",
+   practice:["Round numbers to tens.","Round to hundreds.","Estimate sums.","Estimate products.","Identify significant figures."],
+   voice:"Explain why estimation is useful before an exact calculation.",
+   apply:"Conduct a household estimation exercise and compare estimates with actual values."
+  },
+  {
+   mission:"Geometry Around Me.",
+   learn:"Identify and describe geometric shapes, angles, lines and properties in buildings, objects and the environment.",
+   try:"Find five geometric shapes around your home or school and describe their properties.",
+   practice:["Classify triangles.","Classify quadrilaterals.","Identify angle types.","Measure angles.","Describe symmetry."],
+   voice:"Describe one object around you using geometric language.",
+   apply:"Create a geometry map of a room, classroom or building."
+  },
+  {
+   mission:"Algebra Translator.",
+   learn:"Algebra uses symbols to represent unknown quantities and relationships. Translate words into expressions and equations.",
+   try:"A number increased by 7 is 15. Write an equation and find the number.",
+   practice:["Identify variables.","Translate words into expressions.","Write simple equations.","Substitute values.","Explain algebraic notation."],
+   voice:"Explain why a letter can represent an unknown number.",
+   apply:"Create five real-life situations that can be represented using algebra."
+  },
+  {
+   mission:"Build-and-Solve Algebra Lab.",
+   learn:"Use algebraic expressions and equations to model situations and solve unknown quantities.",
+   try:"Three identical books and one notebook cost TZS 11,000. If the notebook costs TZS 2,000, find the price of one book.",
+   practice:["Simplify expressions.","Solve one-step equations.","Solve two-step equations.","Check solutions.","Explain each step."],
+   voice:"Teach the steps for solving a simple equation.",
+   apply:"Build an algebra problem from a shopping or budgeting situation."
+  },
+  {
+   mission:"Unknown X Investigation.",
+   learn:"Investigate unknown quantities by identifying relationships, forming equations, solving systematically and checking answers.",
+   try:"A number multiplied by 4 and then increased by 3 gives 27. Find the number.",
+   practice:["Identify the unknown.","Form an equation.","Solve systematically.","Check the answer.","Create a similar problem."],
+   voice:"Explain how you know your value of X is correct.",
+   apply:"Create an Unknown X detective case with clues and a final solution."
+  },
+  {
+   mission:"Mathematics in Real-World Decisions.",
+   learn:"Use calculations, comparisons, estimation and reasoning to make informed everyday decisions.",
+   try:"Compare two transport options using cost, distance and travel time. Decide what information is needed.",
+   practice:["Compare prices.","Calculate unit cost.","Analyse time.","Calculate savings.","Explain a decision using evidence."],
+   voice:"Describe a real decision where mathematical evidence can help.",
+   apply:"Create a mathematical decision report for a household or school situation."
+  },
+  {
+   mission:"Integrated Numerical Reasoning.",
+   learn:"Combine number, decimal, ratio, estimation and algebraic reasoning to solve multi-step problems.",
+   try:"Design and solve a problem requiring at least three mathematical ideas.",
+   practice:["Identify information.","Choose operations.","Estimate first.","Calculate exactly.","Check and explain."],
+   voice:"Explain how several mathematical skills can work together.",
+   apply:"Create a multi-step community mathematics investigation."
+  },
+  {
+   mission:"Geometry + Algebra Design Challenge.",
+   learn:"Combine geometric measurement and algebra to solve design problems involving length, area, perimeter or unknown dimensions.",
+   try:"Design a rectangular garden with an unknown length and calculate its perimeter.",
+   practice:["Identify dimensions.","Write an expression.","Calculate perimeter.","Calculate area.","Check the design."],
+   voice:"Explain how algebra can help solve a geometry problem.",
+   apply:"Design a small classroom, garden or room using geometry and algebra."
+  },
+  {
+   mission:"Mathematics Mastery Mission.",
+   learn:"Consolidate numerical, algebraic, geometric and proportional reasoning through independent problem solving.",
+   try:"Choose a challenging problem from the previous weeks and solve it without looking at an example.",
+   practice:["Review weak areas.","Solve mixed problems.","Explain methods.","Check answers.","Correct errors."],
+   voice:"Teach one difficult mathematics idea from this programme.",
+   apply:"Produce a Mathematics Mastery Portfolio containing your strongest evidence."
+  },
+  {
+   mission:"Explain-Your-Thinking Final Challenge.",
+   learn:"Demonstrate mathematical readiness by solving problems and communicating reasoning clearly rather than giving answers alone.",
+   try:"Solve a multi-step problem and write every important reasoning step.",
+   practice:["Read carefully.","Plan.","Calculate.","Check.","Explain."],
+   voice:"Present your final mathematics solution as if explaining it to a teacher.",
+   apply:"Complete a final Mathematics Readiness Evidence Pack."
+  }
+ ],
+
+ kiswahili: [
+  ["Kiswahili, Taifa na Mtanzania","Chunguza nafasi ya Kiswahili katika taifa, utambulisho na maisha ya Mtanzania.","Eleza matumizi matatu ya Kiswahili katika jamii yako."],
+  ["Kiswahili katika Mazingira ya Kiutamaduni","Chunguza uhusiano wa lugha, utamaduni na jamii.","Toa mifano ya maneno yanayohusiana na utamaduni wako."],
+  ["Masimulizi, Kiimbo, Mkazo na Lafudhi","Tambua vipengele vinavyoathiri mawasiliano ya Kiswahili.","Soma sentensi moja kwa mihemko na mkazo tofauti."],
+  ["Aina za Maneno katika Tungo","Tambua nomino, vitenzi, vivumishi, vielezi na aina nyingine za maneno.","Tengeneza sentensi tano zenye aina tofauti za maneno."],
+  ["Sentensi na Uhusiano wa Maneno","Jenga sentensi sahihi na zinazowasilisha maana.","Hariri sentensi tano zenye makosa."],
+  ["Aya na Uhusiano wa Sentensi","Jifunze kujenga aya yenye wazo kuu na sentensi zinazounga mkono.","Andika aya kuhusu shule yako."],
+  ["Uandishi wa Hadithi","Jenga hadithi yenye mwanzo, kati, mwisho, wahusika na tukio.","Andika hadithi fupi ya maneno 150–200."],
+  ["Kusikiliza na Kuelewa Mazungumzo","Sikiliza kwa makini na kutambua taarifa muhimu.","Andika mambo matano muhimu kutoka mazungumzo."],
+  ["Kusoma na Kuelewa Matini","Soma matini na kutambua mawazo makuu na ushahidi.","Soma kifungu na andika wazo kuu."],
+  ["Msamiati na Matumizi Sahihi","Panua msamiati na matumizi sahihi ya maneno.","Tafuta maneno kumi mapya na maana zake."],
+  ["Mawasiliano ya Mazungumzo","Jenga uwezo wa kuzungumza kwa uwazi na heshima.","Andaa mazungumzo mafupi ya dakika mbili."],
+  ["Uandishi na Uhariri","Jifunze kupanga, kuandika, kusahihisha na kuboresha kazi.","Hariri kazi yako na eleza marekebisho matatu."],
+  ["Mawasiliano na Uhawilishaji","Hamisha taarifa kutoka aina moja ya mawasiliano kwenda nyingine.","Badilisha maelezo mafupi kuwa jedwali au aya."],
+  ["Integrated Kiswahili Portfolio","Unganisha kusikiliza, kuzungumza, kusoma, kuandika na kuhariri.","Chagua kazi zako bora na eleza kwa nini."],
+  ["Readiness Assessment","Tathmini utayari wa kutumia Kiswahili kwa kujitegemea.","Fanya tathmini ya kusoma, lugha na uandishi."]
+ ],
+
+ english: [
+  ["Finding Information & Responsible Sources","Learn to identify relevant information and distinguish useful sources.","Find three facts about a topic and identify where each came from."],
+  ["Listening for Information","Develop active listening and note-taking skills.","Listen to a short explanation and record five key points."],
+  ["Speaking Clear Short Messages","Communicate short messages clearly and logically.","Give a one-minute message about your school."],
+  ["Pronunciation, Fluency & Intelligibility","Develop understandable pronunciation, rhythm and fluency.","Read a short paragraph aloud and identify difficult words."],
+  ["Vocabulary Development","Expand vocabulary through context, word families and usage.","Create a vocabulary bank of ten new words."],
+  ["Reading for Meaning","Identify main ideas, details, inference and evidence.","Read a passage and answer comprehension questions."],
+  ["Grammar in Communication","Use grammar to communicate meaning accurately.","Correct ten sentences and explain the corrections."],
+  ["Sentence Construction","Construct clear simple and compound sentences.","Write ten sentences using different structures."],
+  ["Paragraph Writing","Develop coherent paragraphs with topic sentences and supporting details.","Write a paragraph about your community."],
+  ["Functional Communication","Use English for practical everyday communication.","Write a notice, message or simple formal request."],
+  ["Reading + Vocabulary Integration","Use context to understand unfamiliar vocabulary while reading.","Underline unknown words and infer their meanings."],
+  ["Listening + Speaking Integration","Listen, organise information and respond appropriately.","Listen to a short topic and give a structured response."],
+  ["Writing + Editing","Plan, draft, revise and proofread written work.","Edit your paragraph for grammar, spelling and clarity."],
+  ["Integrated Communication Portfolio","Combine listening, speaking, reading and writing evidence.","Select your strongest communication tasks."],
+  ["Readiness Assessment","Demonstrate readiness for Form One English communication.","Complete reading, grammar, vocabulary and writing tasks."]
+ ],
+
+ business: [
+  ["What Is Business Studies?","Understand business as organised activity that provides goods or services to meet needs.","Identify five businesses around your community."],
+  ["Business in Everyday Life","Explore how business affects households, schools and communities.","Describe one business you use regularly."],
+  ["Business and Other Disciplines","Connect business with mathematics, geography, language, technology and social studies.","Explain three connections between business and other subjects."],
+  ["Entrepreneurship","Understand entrepreneurship and the creation of value.","Identify a problem that could become a business opportunity."],
+  ["Entrepreneurial Characteristics","Explore initiative, creativity, persistence, responsibility and risk awareness.","Identify characteristics shown by a local entrepreneur."],
+  ["Entrepreneurial Skills","Develop planning, communication, problem-solving and financial skills.","Create a simple business skill checklist."],
+  ["Finding Business Opportunities","Identify needs, gaps and opportunities in the market.","Observe your community and identify three opportunities."],
+  ["Forms and Ownership","Understand common forms of business ownership.","Compare a sole proprietor with another form of ownership."],
+  ["Sole Proprietorship & Decisions","Explore how one owner manages decisions, resources and risk.","Create a simple sole-proprietor scenario."],
+  ["Business Resources & Operations","Identify human, financial, physical and information resources.","List resources needed for a small business."],
+  ["Customers, Markets & Value","Understand customers, markets, needs and value.","Describe the target customer for a chosen product."],
+  ["Costs, Pricing, Revenue & Profit","Calculate basic costs, revenue and profit.","Calculate profit from a simple sales example."],
+  ["Business Records & Decisions","Use basic records to support responsible decisions.","Create a simple sales and expense record."],
+  ["Brielle Enterprise Project","Plan a small ethical enterprise from idea to evidence.","Create a mini business plan."],
+  ["Readiness Assessment","Demonstrate understanding of business concepts and decision-making.","Complete a business studies readiness task."]
+ ],
+
+ geography: [
+  ["What Is Geography?","Understand geography as the study of places, people, environments and spatial relationships.","Describe a geographical feature near your home."],
+  ["Geography in Everyday Life","Apply geographical thinking to transport, weather, settlement and resources.","Explain how geography affects your daily journey."],
+  ["Earth: Origin, Structure & Shape","Explore Earth's structure and major characteristics.","Draw and label a simple Earth structure diagram."],
+  ["Earth in Space","Understand Earth's position in the solar system.","Explain Earth's relationship with the Sun."],
+  ["Latitude & Longitude","Use latitude and longitude to locate places.","Locate a place using coordinates."],
+  ["Movements of the Earth","Explain rotation and revolution and their effects.","Explain day and night using Earth's rotation."],
+  ["Solar System","Identify major components of the solar system.","Create a labelled solar-system diagram."],
+  ["Continents & Oceans","Identify major continents and oceans and their locations.","Label a world map."],
+  ["Major Physical Features","Recognise mountains, valleys, plateaus, plains and other features.","Identify five physical features."],
+  ["Relief & Landforms","Explain how relief and landforms influence human activity.","Describe how relief affects settlement."],
+  ["Inland Water Bodies","Explore rivers, lakes, wetlands and their importance.","Identify an inland water body and explain its importance."],
+  ["Vegetation & Environment","Understand vegetation, environmental conditions and human interaction.","Observe vegetation around your area."],
+  ["Map Interpretation & Application","Read symbols, scale, direction and basic map information.","Interpret a simple map."],
+  ["My World Geo-Investigation","Conduct a small investigation using observation and geographical evidence.","Investigate one feature of your local environment."],
+  ["Readiness Assessment","Demonstrate geographical knowledge, map skills and environmental reasoning.","Complete a geography readiness task."]
+ ],
+
+ history: [
+  ["Origins of Tanzanian Societies","Explore early communities and the development of societies in Tanzania.","Identify evidence used to study early societies."],
+  ["Bantu, Nilotic, Cushitic & Related Communities","Explore population movements, languages and cultural diversity.","Compare two communities using evidence."],
+  ["Activities of Tanzanian Societies","Study agriculture, hunting, trade, crafts and other economic activities.","Describe activities of one historical community."],
+  ["Values & Heritage","Explore cultural heritage, values and identity.","Identify three forms of local heritage."],
+  ["Opportunities within Heritage","Examine how heritage can support education, identity and responsible development.","Identify a heritage opportunity in your community."],
+  ["Social Systems before Colonialism","Explore family, leadership, age groups and community organisation.","Describe one social institution."],
+  ["Economic & Political Systems","Study production, exchange, leadership and authority.","Compare two pre-colonial systems."],
+  ["Science & Technology before Colonialism","Explore indigenous knowledge, tools, medicine, architecture and technology.","Identify one traditional technology and its purpose."],
+  ["Colonialism and Its Emergence","Understand colonial expansion and its effects on Tanzanian societies.","Explain why colonial powers sought African territories."],
+  ["Colonial Effects & Responses","Examine economic, social and political changes under colonial rule.","Identify two colonial effects and explain them."],
+  ["Resistance to Colonial Rule","Study forms and examples of resistance using historical evidence.","Research one example of resistance."],
+  ["Independence & Nation-Building","Explore the transition to independence and early nation-building.","Identify important features of nation-building."],
+  ["Zanzibar Revolution & Union","Study the Zanzibar Revolution and formation of the Union of Tanganyika and Zanzibar.","Create a simple timeline of key events."],
+  ["Heritage Evidence Project","Use sources to investigate a local historical or heritage topic.","Create a small evidence-based heritage project."],
+  ["Readiness Assessment","Demonstrate historical reasoning using time, evidence, cause, change and consequence.","Complete a history readiness task."]
+ ]
+
+};
+
+
+/* Convert compact units into the format used by tabContent() */
+
+function makeUnit(subject, item, index){
+ const title=SUBJECTS[subject].weeks[index];
+
+ if(subject==='mathematics'){
+  return {
+   mission:item.mission,
+   learn:item.learn,
+   try:item.try,
+   practice:item.practice,
+   voice:item.voice,
+   apply:item.apply
+  };
+ }
 
  return {
-  mission:themes[s],
+  mission:`${title} — ${item[1]}`,
+  learn:item[1],
+  try:item[2],
+  practice:[
+   `Define the key ideas in your own words.`,
+   `Give two examples connected to ${title}.`,
+   `Create one question about ${title}.`,
+   `Answer the question and explain your reasoning.`
+  ],
+  voice:`In 45–90 seconds, teach one important idea from ${title}. Give an example and explain why it matters.`,
+  apply:`Create a piece of evidence connected to ${title}: an explanation, paragraph, diagram, map, calculation, investigation, comparison or project appropriate to the subject.`
+ };
+}
 
-  learn:`${title} is explored as an active learning investigation. Start with what you already know, connect the idea to everyday life, then explain it in your own words. Your goal is not to memorise a paragraph: it is to demonstrate understanding with evidence.`,
 
-  try:`Find one real example connected to “${title}”. Write the example, identify the important information, and explain what the example teaches you.`,
+function content(){
 
+ const subject=state.current.subject;
+ const week=state.current.week;
+
+ const data=CURRICULUM[subject];
+
+ if(data && data[week-1]){
+  return makeUnit(subject,data[week-1],week-1);
+ }
+
+ return {
+  mission:SUBJECTS[subject].weeks[week-1],
+  learn:`Explore ${SUBJECTS[subject].weeks[week-1]} through active learning and real-life examples.`,
+  try:`Find one real example connected to ${SUBJECTS[subject].weeks[week-1]} and explain what it teaches you.`,
   practice:[
    'Define the key idea in your own words.',
    'Give two examples from school, home or community.',
-   'Create one question someone could ask about this topic.',
-   'Solve, explain or demonstrate the question without copying a model answer.'
+   'Create one question about the topic.',
+   'Answer the question and explain your reasoning.'
   ],
-
-  voice:`In 45–90 seconds, teach one important idea from “${title}” as if you were helping a younger learner. State the idea, give an example, and explain why it matters.`,
-
-  apply:`Create a small piece of evidence from your environment: a calculation, paragraph, map, business idea, historical explanation, comparison, observation or explanation appropriate to this subject.`
+  voice:`In 45–90 seconds, teach one important idea from ${SUBJECTS[subject].weeks[week-1]}.`,
+  apply:`Create evidence demonstrating your understanding of ${SUBJECTS[subject].weeks[week-1]}.`
  };
 }
-
-function mathWeek1(){
- return {
-  mission:'Mathematics Is Everywhere — become a Mathematics Detective.',
-
-  learn:'Mathematics is a field of reasoning about numbers, quantities, patterns, relationships, shapes, measurement and logical ideas. It helps people describe, measure, compare, calculate, predict and solve problems. It appears in money, shopping, time, distance, cooking, construction, business, transport, technology and everyday decisions.',
-
-  try:'Brielle has TZS 10,000. Bread costs TZS 2,000, milk TZS 2,500 and fruit TZS 1,500. How much remains? Explain why subtraction is used and show the working.',
-
-  practice:[
-   'Find five things at home that involve mathematics.',
-   'A family has TZS 12,000 and shares it equally among 3 people. How much does each receive?',
-   'School starts at 7:30 and a lesson lasts 45 minutes. What time does it finish?',
-   'A shop sells the same item at two different prices. Explain what information you need before choosing.',
-   'Create three mathematical situations from your home or community.'
-  ],
-
-  voice:'Explain one thing in your home that would be difficult to use, measure, compare or manage without mathematics. Then explain the mathematics involved.',
-
-  apply:'MY COMMUNITY — MATHEMATICS EVIDENCE: choose shopping, transport, cooking, electricity, water, farming, construction, school or business. Identify the numbers, mathematical idea/operation, answer and reasoning.'
- };
-}
-
 function content(){
  if(state.current.subject==='mathematics'&&state.current.week===1){
   return mathWeek1();
