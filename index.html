@@ -1127,19 +1127,37 @@ function mathWeek1(){
    MASTERED — applies the idea confidently to a new situation`
  };
 }
-  
+
 function content(){
- if(state.current.subject==='mathematics'){
+ if(state.current.subject==='mathematics'&&state.current.week===1){
+  return mathWeek1();
+ }
 
-  if(state.current.week===1){
-   return mathWeek1();
-  }
-
-  
  return genericContent(
   state.current.subject,
   state.current.week
  );
+}
+
+function weekTabs(){
+ return [
+  'discover',
+  'learn',
+  'practise',
+  'check',
+  'apply',
+  'voice',
+  'journal',
+  'friday',
+  'mastery'
+ ].map(t=>
+  `<button class="tab ${state.current.tab===t?'active':''}" onclick="setTab('${t}')">${
+   t==='check'?'Knowledge Check':
+   t==='friday'?'Friday Assessment':
+   t==='mastery'?'Evidence & Mastery':
+   t[0].toUpperCase()+t.slice(1)
+  }</button>`
+ ).join('');
 }
 
 function render(){
@@ -1718,59 +1736,13 @@ function tabContent(c){
  if(t==='learn')
  return `
   <div class="content">
-
    <h3>LEARN — Study Notes</h3>
+   <p>${esc(c.learn)}</p>
 
-   <div class="card">
-    <p>${esc(c.learn)}</p>
-   </div>
-
-   ${
-    c.examples?.length
-    ? `
-      <div class="card" style="margin-top:14px">
-       <div class="eyebrow">WORKED EXAMPLES</div>
-       <h3>See the Mathematics in Action</h3>
-
-       ${c.examples.map((ex,i)=>`
-        <div class="card"
-             style="margin-top:12px;border-left:4px solid var(--gold,#d6b25e)">
-
-         <h4>${i+1}. ${esc(ex.title)}</h4>
-
-         <p>
-          <strong>Problem:</strong><br>
-          ${esc(ex.problem)}
-         </p>
-
-         <div class="callout">
-          <strong>Step-by-step working</strong>
-
-          <ol>
-           ${ex.working.map(step=>`
-            <li>${esc(step)}</li>
-           `).join('')}
-          </ol>
-         </div>
-
-         <div class="notice" style="margin-top:10px">
-          <strong>Why this method?</strong><br>
-          ${esc(ex.reasoning)}
-         </div>
-
-        </div>
-       `).join('')}
-
-      </div>
-     `
-    : ''
-   }
-
-   <div class="callout" style="margin-top:14px">
+   <div class="callout">
     <b>Education Access rule:</b>
     Explain the idea in your own words before moving to practice.
    </div>
-
   </div>
  `;
 
