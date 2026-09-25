@@ -2540,25 +2540,26 @@ function content(){
  );
 }
 
-function weekTabs(){
- return [
-  'discover',
-  'learn',
-  'practise',
-  'check',
-  'apply',
-  'voice',
-  'journal',
-  'friday',
-  'mastery'
- ].map(t=>
-  `<button class="tab ${state.current.tab===t?'active':''}" onclick="setTab('${t}')">${
-   t==='check'?'Knowledge Check':
-   t==='friday'?'Friday Assessment':
-   t==='mastery'?'Evidence & Mastery':
-   t[0].toUpperCase()+t.slice(1)
-  }</button>`
- ).join('');
+function content(){
+ if(state.current.subject==='mathematics'){
+
+  if(state.current.week===1){
+   return mathWeek1();
+  }
+
+  if(state.current.week===2){
+   return mathWeek2();
+  }
+
+  if(state.current.week===3){
+   return mathWeek3();
+  }
+ }
+
+ return genericContent(
+  state.current.subject,
+  state.current.week
+ );
 }
 
 function render(){
