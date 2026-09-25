@@ -2541,20 +2541,24 @@ function content(){
 }
 
 function content(){
+ const week = Number(state.current.week);
+
  if(state.current.subject==='mathematics'){
 
-  if(state.current.week===1){
+  if(week===1){
    return mathWeek1();
   }
 
-  if(state.current.week===2){
+  if(week===2){
    return mathWeek2();
   }
-
-  if(state.current.week===3){
-   return mathWeek3();
-  }
  }
+
+ return genericContent(
+  state.current.subject,
+  state.current.week
+ );
+}
 
  return genericContent(
   state.current.subject,
