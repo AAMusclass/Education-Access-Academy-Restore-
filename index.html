@@ -222,6 +222,91 @@ function getPermanentLearnerId(){
 
 const PERMANENT_LEARNER_ID=
  getPermanentLearnerId();
+ /* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 2: Learner profile schema
+   ========================================================= */
+
+function defaultLearnerProfile(){
+
+ const now=
+  new Date().toISOString();
+
+ return {
+
+  learnerId:
+   PERMANENT_LEARNER_ID,
+
+  schemaVersion:1,
+
+  createdAt:now,
+
+  updatedAt:now,
+
+  identity:{
+
+   firstName:'Brielle',
+
+   middleName:'',
+
+   lastName:'',
+
+   preferredName:'Brielle'
+
+  },
+
+  parentGuardian:{
+
+   name:'Mr. Patrick',
+
+   relationship:'Parent / Home Teacher',
+
+   phone:'',
+
+   email:''
+
+  },
+
+  previousSchool:{
+
+   schoolName:
+    'Fedha Primary School, Kawe',
+
+   levelCompleted:
+    'Grade 7',
+
+   completionYear:
+    '2026',
+
+   notes:''
+
+  },
+
+  programme:{
+
+   programmeName:
+    'Education Access E-Learning Academy',
+
+   currentLevel:
+    'Grade 7 → Form One',
+
+   programmePeriod:
+    'October–December 2026',
+
+   targetLevel:
+    'Form One',
+
+   targetDate:
+    'January 2027',
+
+   goal:
+    'January 2027 Form One readiness'
+
+  }
+
+ };
+
+ }
 let state=load();
 let recorder=null;
 let recordingChunks=[];
