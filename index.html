@@ -222,18 +222,86 @@ function save(){
 }
 
 function openAudioDB(){
- if(audioDB)return Promise.resolve(audioDB);
+
+ if(audioDB)
+  return Promise.resolve(audioDB);
 
  return new Promise((resolve,reject)=>{
-  const r=indexedDB.open(DB_NAME,DB_VERSION);
 
-  r.onupgradeneeded=()=>{
+  const r=
+   indexedDB.open(
+    DB_NAME,
+    DB_VERSION
+   );
+
+  r.onupgradeneeded=event=>{
+
    const db=r.result;
-   if(!db.objectStoreNames.contains(AUDIO_STORE)){
-    db.createObjectStore(AUDIO_STORE,{keyPath:'id'});
+
+   /*
+    * EXISTING AUDIO STORE
+    *
+    * Keep the existing Voice Studio store.
+    * Do not delete or recreate existing data.
+    */
+   if(
+    !db.objectStoreNames.contains(
+     AUDIO_STORE
+    )
+   ){
+
+    db.createObjectStore(
+     AUDIO_STORE,
+     {keyPath:'id'}
+    );
+
    }
+
+   /*
+    * NEW LEARNER IDENTITY STORE
+    *
+    * This store will hold the permanent
+    * learner record.
+    */
+   if(
+    !db.objectStoreNames.contains(
+     LEARNER_STORE
+    )
+   ){
+
+    const learnerStore=
+     db.createObjectStore(
+      LEARNER_STORE,
+      {keyPath:'recordKey'}
+     );
+
+    learnerStore.createIndex(
+     'learnerId',
+     'learnerId',
+     {unique:true}
+    );
+
+   }
+
   };
 
+  r.onsuccess=()=>{
+
+   audioDB=r.result;
+
+   resolve(audioDB);
+
+  };
+
+  r.onerror=()=>{
+
+   reject(r.error);
+
+  };
+
+ });
+
+ }
   r.onsuccess=()=>{
    audioDB=r.result;
    resolve(audioDB);
