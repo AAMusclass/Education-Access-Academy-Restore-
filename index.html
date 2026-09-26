@@ -185,11 +185,9 @@ function defaultState(){
 }
 
 const DB_NAME='EA_Academy_V21_Evidence';
-const DB_VERSION=2;
-
+const DB_VERSION=1;
 const AUDIO_STORE='audio';
-const LEARNER_STORE='learners';
-const IDENTITY_SCHEMA_VERSION=1;
+
 let state=load();
 let recorder=null;
 let recordingChunks=[];
@@ -222,75 +220,6 @@ function save(){
 }
 
 function openAudioDB(){
-
- if(audioDB)
-  return Promise.resolve(audioDB);
-
- return new Promise((resolve,reject)=>{
-
-  const r=
-   indexedDB.open(
-    DB_NAME,
-    DB_VERSION
-   );
-
-  r.onupgradeneeded=event=>{
-
-   const db=r.result;
-
-   /*
-    * EXISTING AUDIO STORE
-    *
-    * Keep the existing Voice Studio store.
-    * Do not delete or recreate existing data.
-    */
-   if(
-    !db.objectStoreNames.contains(
-     AUDIO_STORE
-    )
-   ){
-
-    db.createObjectStore(
-     AUDIO_STORE,
-     {keyPath:'id'}
-    );
-
-   }
-
-   /*
-    * NEW LEARNER IDENTITY STORE
-    *
-    * This store will hold the permanent
-    * learner record.
-    */
-   if(
-    !db.objectStoreNames.contains(
-     LEARNER_STORE
-    )
-   ){
-
-    const learnerStore=
-     db.createObjectStore(
-      LEARNER_STORE,
-      {keyPath:'recordKey'}
-     );
-
-    learnerStore.createIndex(
-     'learnerId',
-     'learnerId',
-     {unique:true}
-    );
-
-   }
-
-  };
-
-  r.onsuccess=()=>{
-
-   audioDB=r.result;
-
-   resolve(audioDB);
-function openAudioDB(){
  if(audioDB)return Promise.resolve(audioDB);
 
  return new Promise((resolve,reject)=>{
@@ -298,23 +227,11 @@ function openAudioDB(){
 
   r.onupgradeneeded=()=>{
    const db=r.result;
-
    if(!db.objectStoreNames.contains(AUDIO_STORE)){
-    db.createObjectStore(
-     AUDIO_STORE,
-     {keyPath:'id'}
-    );
+    db.createObjectStore(AUDIO_STORE,{keyPath:'id'});
    }
   };
 
-  r.onsuccess=()=>{
-   audioDB=r.result;
-   resolve(audioDB);
-  };
-
-  r.onerror=()=>reject(r.error);
- });
-}
   r.onsuccess=()=>{
    audioDB=r.result;
    resolve(audioDB);
@@ -354,117 +271,9 @@ async function getAudio(id){
  });
 }
 
-/* =========================================================
-   PHASE 1 — LEARNER IDENTITY & DATA LAYER
-   Step 3: Permanent learner record schema
-   ========================================================= */
-
-function createPermanentLearnerId(){
- const now=Date.now().toString(36);
-
- const random=
-  Math.random()
-   .toString(36)
-   .slice(2,10);
-
- return `EA-LRN-${now}-${random}`.toUpperCase();
-}
-
-function defaultLearnerRecord(){
-
- const now=
-  new Date().toISOString();
-
- return {
-
-  recordKey:'primary',
-
-  learnerId:
-   createPermanentLearnerId(),
-
-  schemaVersion:
-   IDENTITY_SCHEMA_VERSION,
-
-  createdAt:now,
-
-  updatedAt:now,
-
-  identity:{
-
-   firstName:'Brielle',
-
-   middleName:'',
-
-   lastName:'',
-
-   preferredName:'Brielle',
-
-   learnerName:'Brielle'
-
-  },
-
-  parentGuardian:{
-
-   name:'Mr. Patrick',
-
-   relationship:'Parent / Home Teacher',
-
-   phone:'',
-
-   email:'',
-
-   role:'Parent / Home Teacher'
-
-  },
-
-  previousSchool:{
-
-   schoolName:
-    'Fedha Primary School, Kawe',
-
-   levelCompleted:'Grade 7',
-
-   completionYear:'2026',
-
-   notes:''
-
-  },
-
-  programme:{
-
-   programmeName:
-    'Education Access E-Learning Academy',
-
-   currentLevel:
-    'Grade 7 → Form One',
-
-   programmePeriod:
-    'October–December 2026',
-
-   targetLevel:
-    'Form One',
-
-   targetDate:
-    'January 2027',
-
-   goal:
-    'January 2027 Form One readiness'
-
-  },
-
-  academy:{
-
-   learnerStatus:'Active',
-
-   currentSubject:'mathematics',
-
-   currentWeek:1
-
-  }
-
- };
-
- }
+async function hydrateAudioUrls(){
+ for(const x of state.evidence.filter(e=>e.audioId)){
+  if(x.audioUrl)continue;
 
   try{
    const blob=await getAudio(x.audioId);
