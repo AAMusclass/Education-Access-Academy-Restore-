@@ -187,7 +187,41 @@ function defaultState(){
 const DB_NAME='EA_Academy_V21_Evidence';
 const DB_VERSION=1;
 const AUDIO_STORE='audio';
+/* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 1: Permanent learner identity foundation
+   ========================================================= */
 
+const LEARNER_ID_KEY='EA_Academy_Learner_ID';
+
+function getPermanentLearnerId(){
+
+ const existing=
+  localStorage.getItem(LEARNER_ID_KEY);
+
+ if(existing){
+  return existing;
+ }
+
+ const id=
+  'EA-LRN-' +
+  Date.now().toString(36).toUpperCase() +
+  '-' +
+  Math.random()
+   .toString(36)
+   .slice(2,8)
+   .toUpperCase();
+
+ localStorage.setItem(
+  LEARNER_ID_KEY,
+  id
+ );
+
+ return id;
+}
+
+const PERMANENT_LEARNER_ID=
+ getPermanentLearnerId();
 let state=load();
 let recorder=null;
 let recordingChunks=[];
