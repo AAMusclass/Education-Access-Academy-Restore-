@@ -307,6 +307,49 @@ function defaultLearnerProfile(){
  };
 
  }
+ /* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 3: Persistent learner profile
+   ========================================================= */
+
+const LEARNER_PROFILE_KEY=
+ 'EA_Academy_Learner_Profile';
+
+function loadLearnerProfile(){
+
+ try{
+
+  const raw=
+   localStorage.getItem(
+    LEARNER_PROFILE_KEY
+   );
+
+  if(raw){
+
+   return {
+    ...defaultLearnerProfile(),
+    ...JSON.parse(raw)
+   };
+
+  }
+
+ }catch(e){}
+
+ return defaultLearnerProfile();
+
+}
+
+function saveLearnerProfile(profile){
+
+ profile.updatedAt=
+  new Date().toISOString();
+
+ localStorage.setItem(
+  LEARNER_PROFILE_KEY,
+  JSON.stringify(profile)
+ );
+
+ }
 let state=load();
 let recorder=null;
 let recordingChunks=[];
