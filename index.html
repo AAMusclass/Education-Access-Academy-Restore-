@@ -273,9 +273,117 @@ async function getAudio(id){
  });
 }
 
-async function hydrateAudioUrls(){
- for(const x of state.evidence.filter(e=>e.audioId)){
-  if(x.audioUrl)continue;
+/* =========================================================
+   PHASE 1 — LEARNER IDENTITY & DATA LAYER
+   Step 3: Permanent learner record schema
+   ========================================================= */
+
+function createPermanentLearnerId(){
+ const now=Date.now().toString(36);
+
+ const random=
+  Math.random()
+   .toString(36)
+   .slice(2,10);
+
+ return `EA-LRN-${now}-${random}`.toUpperCase();
+}
+
+function defaultLearnerRecord(){
+
+ const now=
+  new Date().toISOString();
+
+ return {
+
+  recordKey:'primary',
+
+  learnerId:
+   createPermanentLearnerId(),
+
+  schemaVersion:
+   IDENTITY_SCHEMA_VERSION,
+
+  createdAt:now,
+
+  updatedAt:now,
+
+  identity:{
+
+   firstName:'Brielle',
+
+   middleName:'',
+
+   lastName:'',
+
+   preferredName:'Brielle',
+
+   learnerName:'Brielle'
+
+  },
+
+  parentGuardian:{
+
+   name:'Mr. Patrick',
+
+   relationship:'Parent / Home Teacher',
+
+   phone:'',
+
+   email:'',
+
+   role:'Parent / Home Teacher'
+
+  },
+
+  previousSchool:{
+
+   schoolName:
+    'Fedha Primary School, Kawe',
+
+   levelCompleted:'Grade 7',
+
+   completionYear:'2026',
+
+   notes:''
+
+  },
+
+  programme:{
+
+   programmeName:
+    'Education Access E-Learning Academy',
+
+   currentLevel:
+    'Grade 7 → Form One',
+
+   programmePeriod:
+    'October–December 2026',
+
+   targetLevel:
+    'Form One',
+
+   targetDate:
+    'January 2027',
+
+   goal:
+    'January 2027 Form One readiness'
+
+  },
+
+  academy:{
+
+   learnerStatus:'Active',
+
+   currentSubject:'mathematics',
+
+   currentWeek:1
+
+  }
+
+ };
+
+ }
 
   try{
    const blob=await getAudio(x.audioId);
