@@ -447,6 +447,148 @@ function registerLearner(profile){
 }
 
 registerLearner(learnerProfile);
+ /* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 9: Learner enrollment foundation
+   ========================================================= */
+
+function createLearnerProfile(profileData={}){
+
+ const learnerId=
+  'EA-LRN-' +
+  Date.now().toString(36).toUpperCase() +
+  '-' +
+  Math.random()
+   .toString(36)
+   .slice(2,8)
+   .toUpperCase();
+
+ const now=
+  new Date().toISOString();
+
+ const profile={
+
+  learnerId:learnerId,
+
+  schemaVersion:1,
+
+  createdAt:now,
+
+  updatedAt:now,
+
+  identity:{
+
+   firstName:
+    profileData.firstName || '',
+
+   middleName:
+    profileData.middleName || '',
+
+   lastName:
+    profileData.lastName || '',
+
+   preferredName:
+    profileData.preferredName ||
+    profileData.firstName ||
+    '',
+
+   accountRole:'learner'
+
+  },
+
+  parentGuardian:{
+
+   guardianId:
+    profileData.guardianId || '',
+
+   name:
+    profileData.guardianName || '',
+
+   relationship:
+    profileData.relationship ||
+    'Parent / Guardian',
+
+   phone:
+    profileData.guardianPhone || '',
+
+   email:
+    profileData.guardianEmail || '',
+
+   linkedLearnerIds:[
+    learnerId
+   ]
+
+  },
+
+  previousSchool:{
+
+   schoolName:
+    profileData.schoolName || '',
+
+   levelCompleted:
+    profileData.levelCompleted || '',
+
+   completionYear:
+    profileData.completionYear || '',
+
+   notes:''
+
+  },
+
+  programme:{
+
+   programmeName:
+    profileData.programmeName ||
+    'Education Access E-Learning Academy',
+
+   currentLevel:
+    profileData.currentLevel || '',
+
+   programmePeriod:
+    profileData.programmePeriod || '',
+
+   targetLevel:
+    profileData.targetLevel || '',
+
+   targetDate:
+    profileData.targetDate || '',
+
+   goal:
+    profileData.goal || ''
+
+  }
+
+ };
+
+ const registry=
+  loadLearnerRegistry();
+
+ registry.push({
+
+  learnerId:
+   profile.learnerId,
+
+  preferredName:
+   profile.identity.preferredName,
+
+  accountRole:
+   profile.identity.accountRole,
+
+  school:
+   profile.previousSchool.schoolName,
+
+  currentLevel:
+   profile.programme.currentLevel,
+
+  registeredAt:now
+
+ });
+
+ saveLearnerRegistry(registry);
+
+ return profile;
+
+ }
 let recorder=null;
 let recordingChunks=[];
 let audioDB=null;
