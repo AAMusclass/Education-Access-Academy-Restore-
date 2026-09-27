@@ -3614,11 +3614,109 @@ async function resetProgress(){
  }
 }
 
-state.page='dashboard';
+function initialize(){
 
-render();
+ try{
 
-hydrateAudioUrls();
+  if(!state){
+   state=defaultState();
+  }
+
+  function initialize(){
+
+ try{
+
+  if(!state){
+   state=defaultState();
+  }
+
+  state.page='dashboard';
+
+  render();
+
+  if(typeof hydrateAudioUrls==='function'){
+   hydrateAudioUrls();
+  }
+
+ }catch(error){
+
+  console.error('Education Access Academy initialization failed:',error);
+
+  document.body.innerHTML=`
+   <div style="
+    padding:30px;
+    font-family:Arial,sans-serif;
+    background:#06101c;
+    color:#fff;
+    min-height:100vh;
+   ">
+    <h2>Education Access Academy — Startup Error</h2>
+
+    <p>
+     The application loaded, but an error occurred while
+     initializing the Academy.
+    </p>
+
+    <pre style="
+     white-space:pre-wrap;
+     background:#0c1828;
+     padding:16px;
+     border-radius:8px;
+     overflow:auto;
+    ">${String(error?.stack||error)}</pre>
+
+    <p style="color:#aaa;">
+     This diagnostic message is temporary and is intended to
+     identify the exact startup failure.
+    </p>
+   </div>
+  `;
+
+ }
+
+}
+
+initialize();
+
+ }catch(error){
+
+  console.error('Education Access Academy initialization failed:',error);
+
+  document.body.innerHTML=`
+   <div style="
+    padding:30px;
+    font-family:Arial,sans-serif;
+    background:#06101c;
+    color:#fff;
+    min-height:100vh;
+   ">
+    <h2>Education Access Academy — Startup Error</h2>
+
+    <p>
+     The application loaded, but an error occurred while
+     initializing the Academy.
+    </p>
+
+    <pre style="
+     white-space:pre-wrap;
+     background:#0c1828;
+     padding:16px;
+     border-radius:8px;
+     overflow:auto;
+    ">${String(error?.stack||error)}</pre>
+
+    <p style="color:#aaa;">
+     This diagnostic message is temporary and is intended to
+     identify the exact startup failure.
+    </p>
+   </div>
+  `;
+
+ }
+
+}
+
+initialize();
 
 </script>
 </body>
