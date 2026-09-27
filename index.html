@@ -604,6 +604,94 @@ function enrollLearner(profileData={}){
  return profile;
 
  }
+ function submitLearnerEnrollment(){
+
+ const profile=
+  enrollLearner({
+
+   firstName:
+    document.getElementById(
+     'enrollFirstName'
+    ).value.trim(),
+
+   middleName:
+    document.getElementById(
+     'enrollMiddleName'
+    ).value.trim(),
+
+   lastName:
+    document.getElementById(
+     'enrollLastName'
+    ).value.trim(),
+
+   preferredName:
+    document.getElementById(
+     'enrollPreferredName'
+    ).value.trim(),
+
+   guardianName:
+    document.getElementById(
+     'enrollGuardianName'
+    ).value.trim(),
+
+   relationship:
+    document.getElementById(
+     'enrollRelationship'
+    ).value.trim(),
+
+   guardianPhone:
+    document.getElementById(
+     'enrollGuardianPhone'
+    ).value.trim(),
+
+   guardianEmail:
+    document.getElementById(
+     'enrollGuardianEmail'
+    ).value.trim(),
+
+   schoolName:
+    document.getElementById(
+     'enrollSchoolName'
+    ).value.trim(),
+
+   levelCompleted:
+    document.getElementById(
+     'enrollLevelCompleted'
+    ).value.trim(),
+
+   currentLevel:
+    document.getElementById(
+     'enrollCurrentLevel'
+    ).value.trim(),
+
+   programmePeriod:
+    document.getElementById(
+     'enrollProgrammePeriod'
+    ).value.trim(),
+
+   targetLevel:
+    document.getElementById(
+     'enrollTargetLevel'
+    ).value.trim(),
+
+   targetDate:
+    document.getElementById(
+     'enrollTargetDate'
+    ).value,
+
+   goal:
+    document.getElementById(
+     'enrollGoal'
+    ).value.trim()
+
+  });
+
+ alert(
+  'Learner enrolled successfully. Learner ID: ' +
+  profile.learnerId
+ );
+
+ }
 let recorder=null;
 let recordingChunks=[];
 let audioDB=null;
