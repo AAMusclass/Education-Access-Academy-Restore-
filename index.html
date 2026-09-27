@@ -357,6 +357,96 @@ let state=load();
 
 const learnerProfile=
  loadLearnerProfile();
+ /* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 8: Academy learner registry
+   ========================================================= */
+
+const LEARNER_REGISTRY_KEY=
+ 'EA_Academy_Learner_Registry';
+
+function loadLearnerRegistry(){
+
+ try{
+
+  const raw=
+   localStorage.getItem(
+    LEARNER_REGISTRY_KEY
+   );
+
+  if(raw){
+
+   const registry=
+    JSON.parse(raw);
+
+   if(Array.isArray(registry)){
+    return registry;
+   }
+
+  }
+
+ }catch(e){}
+
+ return [];
+
+}
+
+function saveLearnerRegistry(registry){
+
+ localStorage.setItem(
+  LEARNER_REGISTRY_KEY,
+  JSON.stringify(registry)
+ );
+
+}
+
+function registerLearner(profile){
+
+ const registry=
+  loadLearnerRegistry();
+
+ const existing=
+  registry.find(
+   learner =>
+    learner.learnerId ===
+    profile.learnerId
+  );
+
+ if(existing){
+
+  return registry;
+
+ }
+
+ registry.push({
+
+  learnerId:
+   profile.learnerId,
+
+  preferredName:
+   profile.identity.preferredName,
+
+  accountRole:
+   profile.identity.accountRole,
+
+  school:
+   profile.previousSchool.schoolName,
+
+  currentLevel:
+   profile.programme.currentLevel,
+
+  registeredAt:
+   new Date().toISOString()
+
+ });
+
+ saveLearnerRegistry(registry);
+
+ return registry;
+
+}
+
+registerLearner(learnerProfile);
 let recorder=null;
 let recordingChunks=[];
 let audioDB=null;
