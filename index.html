@@ -1823,8 +1823,28 @@ voice:'Voice Studio',
  })[x]||x;
 }
 
+ })[x]||x;
+}
+
 function page(){
-function page(){
+ switch(state.page){
+ switch(state.page){
+  case'curriculum':return curriculumPage();
+  case'evidence':return evidencePage();
+  case'voice':return voicePage();
+  case'assessment':return assessmentPage();
+  case'journal':return journalPage();
+  case'parent':return parentPage();
+  case'profile':return profilePage();
+  case'enrollment':return enrollmentPage();
+  default:return dashboardPage();
+ }
+}
+function dashboardPage(){
+ const units=90;
+ const completed=Object.keys(state.completed).length;
+ const ev=state.evidence.length;
+
  switch(state.page){
   case'curriculum':return curriculumPage();
   case'evidence':return evidencePage();
