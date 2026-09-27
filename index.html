@@ -591,6 +591,122 @@ function enrollLearner(profileData={}){
  return profile;
 
  }
+ /* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 10B: Administrator enrollment screen
+   ========================================================= */
+
+function enrollmentPage(){
+
+ return `
+ <div class="card">
+
+  <h2>Enroll New Learner</h2>
+
+  <p>
+   Create a new learner profile and generate a
+   permanent Learner ID.
+  </p>
+
+  <div class="grid">
+
+   <label class="span6">
+    First name
+    <input id="enrollFirstName">
+   </label>
+
+   <label class="span6">
+    Middle name
+    <input id="enrollMiddleName">
+   </label>
+
+   <label class="span6">
+    Last name
+    <input id="enrollLastName">
+   </label>
+
+   <label class="span6">
+    Preferred name
+    <input id="enrollPreferredName">
+   </label>
+
+   <label class="span6">
+    Parent / Guardian name
+    <input id="enrollGuardianName">
+   </label>
+
+   <label class="span6">
+    Relationship
+    <input
+     id="enrollRelationship"
+     value="Parent / Guardian">
+   </label>
+
+   <label class="span6">
+    Parent / Guardian phone
+    <input id="enrollGuardianPhone">
+   </label>
+
+   <label class="span6">
+    Parent / Guardian email
+    <input
+     id="enrollGuardianEmail"
+     type="email">
+   </label>
+
+   <label class="span6">
+    Previous school
+    <input id="enrollSchoolName">
+   </label>
+
+   <label class="span6">
+    Level completed
+    <input id="enrollLevelCompleted">
+   </label>
+
+   <label class="span6">
+    Current level
+    <input id="enrollCurrentLevel">
+   </label>
+
+   <label class="span6">
+    Programme period
+    <input id="enrollProgrammePeriod">
+   </label>
+
+   <label class="span6">
+    Target level
+    <input id="enrollTargetLevel">
+   </label>
+
+   <label class="span6">
+    Target date
+    <input
+     id="enrollTargetDate"
+     type="date">
+   </label>
+
+   <label class="span12">
+    Learning goal
+    <textarea id="enrollGoal"></textarea>
+   </label>
+
+  </div>
+
+  <div class="actions">
+
+   <button
+    class="btn primary"
+    onclick="submitLearnerEnrollment()">
+    Enroll Learner
+   </button>
+
+  </div>
+
+ </div>
+ `;
+
+                       }
 let recorder=null;
 let recordingChunks=[];
 let audioDB=null;
