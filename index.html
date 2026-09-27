@@ -1679,6 +1679,7 @@ function render(){
 
   <nav class="nav">
   ${[
+    {[
     'dashboard',
     'curriculum',
     'evidence',
@@ -1686,7 +1687,8 @@ function render(){
     'assessment',
     'journal',
     'parent',
-    'profile'
+    'profile',
+    'enrollment'
   ].map(x=>
     `<button class="${state.page===x?'active':''}" onclick="go('${x}')">${label(x)}</button>`
    ).join('')}
