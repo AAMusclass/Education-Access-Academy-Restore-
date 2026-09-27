@@ -256,7 +256,20 @@ function defaultLearnerProfile(){
    accountRole:'learner'
 
 },
-  
+  identity:{
+
+   firstName:'Brielle',
+
+   middleName:'',
+
+   lastName:'',
+
+   preferredName:'Brielle',
+
+   accountRole:'learner'
+
+},
+
   previousSchool:{
 
    schoolName:
@@ -591,128 +604,7 @@ function enrollLearner(profileData={}){
  return profile;
 
  }
- /* =========================================================
-   PHASE 1 — LEARNER IDENTITY
-   Step 10B: Administrator enrollment screen
-   ========================================================= */
-
-function enrollmentPage(){
-
- return `
- <div class="card">
-
-  <h2>Enroll New Learner</h2>
-
-  <p>
-   Create a new learner profile and generate a
-   permanent Learner ID.
-  </p>
-
-  <div class="grid">
-
-   <label class="span6">
-    First name
-    <input id="enrollFirstName">
-   </label>
-
-   <label class="span6">
-    Middle name
-    <input id="enrollMiddleName">
-   </label>
-
-   <label class="span6">
-    Last name
-    <input id="enrollLastName">
-   </label>
-
-   <label class="span6">
-    Preferred name
-    <input id="enrollPreferredName">
-   </label>
-
-   <label class="span6">
-    Parent / Guardian name
-    <input id="enrollGuardianName">
-   </label>
-
-   <label class="span6">
-    Relationship
-    <input
-     id="enrollRelationship"
-     value="Parent / Guardian">
-   </label>
-
-   <label class="span6">
-    Parent / Guardian phone
-    <input id="enrollGuardianPhone">
-   </label>
-
-   <label class="span6">
-    Parent / Guardian email
-    <input
-     id="enrollGuardianEmail"
-     type="email">
-   </label>
-
-   <label class="span6">
-    Previous school
-    <input id="enrollSchoolName">
-   </label>
-
-   <label class="span6">
-    Level completed
-    <input id="enrollLevelCompleted">
-   </label>
-
-   <label class="span6">
-    Current level
-    <input id="enrollCurrentLevel">
-   </label>
-
-   <label class="span6">
-    Programme period
-    <input id="enrollProgrammePeriod">
-   </label>
-
-   <label class="span6">
-    Target level
-    <input id="enrollTargetLevel">
-   </label>
-
-   <label class="span6">
-    Target date
-    <input
-     id="enrollTargetDate"
-     type="date">
-   </label>
-
-   <label class="span12">
-    Learning goal
-    <textarea id="enrollGoal"></textarea>
-   </label>
-
-  </div>
-
-  <div class="actions">
-
-   <button
-    class="btn primary"
-    onclick="submitLearnerEnrollment()">
-    Enroll Learner
-   </button>
-
-  </div>
-
- </div>
- `;
-
-                       }
- /* =========================================================
-   PHASE 1 — LEARNER IDENTITY
-   Step 10B: Enrollment submission handler
-   ========================================================= */
-
-function submitLearnerEnrollment(){
+ function submitLearnerEnrollment(){
 
  const profile=
   enrollLearner({
@@ -1643,7 +1535,7 @@ function mathWeek1(){
    Do not simply read the lesson. Explain it in your own words.`,
 
   apply:
-   `MY COMMUNITY MATHEMATICS INVESTIGATION
+   `MY COMMUNITY MATHEATICS INVESTIGATION
 
    Choose ONE real situation:
 
@@ -1787,6 +1679,7 @@ function render(){
 
   <nav class="nav">
   ${[
+    {[
     'dashboard',
     'curriculum',
     'evidence',
@@ -1794,7 +1687,8 @@ function render(){
     'assessment',
     'journal',
     'parent',
-    'profile'
+    'profile',
+    'enrollment'
   ].map(x=>
     `<button class="${state.page===x?'active':''}" onclick="go('${x}')">${label(x)}</button>`
    ).join('')}
@@ -1821,39 +1715,23 @@ voice:'Voice Studio',
   parent:'Parent Centre',
   profile:'Profile'
  })[x]||x;
- }
+}
 
 function page(){
  switch(state.page){
- switch(state.page){
   case'curriculum':return curriculumPage();
-  case'evidence':return evidencePage();
-  case'voice':return voicePage();
+case'evidence':return evidencePage();
+case'voice':return voicePage();
   case'assessment':return assessmentPage();
   case'journal':return journalPage();
   case'parent':return parentPage();
   case'profile':return profilePage();
-  case'enrollment':return enrollmentPage();
   default:return dashboardPage();
+   case'profile':return profilePage();
+  case'enrollment':return enrollmentPage();
  }
 }
-function dashboardPage(){
- const units=90;
- const completed=Object.keys(state.completed).length;
- const ev=state.evidence.length;
 
- switch(state.page){
-  case'curriculum':return curriculumPage();
-  case'evidence':return evidencePage();
-  case'voice':return voicePage();
-  case'assessment':return assessmentPage();
-  case'journal':return journalPage();
-  case'parent':return parentPage();
-  case'profile':return profilePage();
-  case'enrollment':return enrollmentPage();
-  default:return dashboardPage();
- }
-}
 function dashboardPage(){
  const units=90;
  const completed=Object.keys(state.completed).length;
@@ -3083,17 +2961,6 @@ function profilePage(){
  <div class="card">
 
   <h2>Learner & Programme Profile</h2>
-
-<div class="actions">
-
- <button
-  class="btn primary"
-  onclick="go('enrollment')">
-  Enroll New Learner
- </button>
-
-</div>
-
 <div class="card" style="margin:12px 0;">
 
  <strong>Permanent Learner ID</strong>
@@ -3614,109 +3481,11 @@ async function resetProgress(){
  }
 }
 
-function initialize(){
+state.page='dashboard';
 
- try{
+render();
 
-  if(!state){
-   state=defaultState();
-  }
-
-  function initialize(){
-
- try{
-
-  if(!state){
-   state=defaultState();
-  }
-
-  state.page='dashboard';
-
-  render();
-
-  if(typeof hydrateAudioUrls==='function'){
-   hydrateAudioUrls();
-  }
-
- }catch(error){
-
-  console.error('Education Access Academy initialization failed:',error);
-
-  document.body.innerHTML=`
-   <div style="
-    padding:30px;
-    font-family:Arial,sans-serif;
-    background:#06101c;
-    color:#fff;
-    min-height:100vh;
-   ">
-    <h2>Education Access Academy — Startup Error</h2>
-
-    <p>
-     The application loaded, but an error occurred while
-     initializing the Academy.
-    </p>
-
-    <pre style="
-     white-space:pre-wrap;
-     background:#0c1828;
-     padding:16px;
-     border-radius:8px;
-     overflow:auto;
-    ">${String(error?.stack||error)}</pre>
-
-    <p style="color:#aaa;">
-     This diagnostic message is temporary and is intended to
-     identify the exact startup failure.
-    </p>
-   </div>
-  `;
-
- }
-
-}
-
-initialize();
-
- }catch(error){
-
-  console.error('Education Access Academy initialization failed:',error);
-
-  document.body.innerHTML=`
-   <div style="
-    padding:30px;
-    font-family:Arial,sans-serif;
-    background:#06101c;
-    color:#fff;
-    min-height:100vh;
-   ">
-    <h2>Education Access Academy — Startup Error</h2>
-
-    <p>
-     The application loaded, but an error occurred while
-     initializing the Academy.
-    </p>
-
-    <pre style="
-     white-space:pre-wrap;
-     background:#0c1828;
-     padding:16px;
-     border-radius:8px;
-     overflow:auto;
-    ">${String(error?.stack||error)}</pre>
-
-    <p style="color:#aaa;">
-     This diagnostic message is temporary and is intended to
-     identify the exact startup failure.
-    </p>
-   </div>
-  `;
-
- }
-
-}
-
-initialize();
+hydrateAudioUrls();
 
 </script>
 </body>
