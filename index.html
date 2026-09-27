@@ -256,20 +256,7 @@ function defaultLearnerProfile(){
    accountRole:'learner'
 
 },
-  identity:{
-
-   firstName:'Brielle',
-
-   middleName:'',
-
-   lastName:'',
-
-   preferredName:'Brielle',
-
-   accountRole:'learner'
-
-},
-
+  
   previousSchool:{
 
    schoolName:
@@ -587,6 +574,230 @@ function createLearnerProfile(profileData={}){
  saveLearnerRegistry(registry);
 
  return profile;
+
+ }
+ /* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 10A: Administrator enrollment action
+   ========================================================= */
+
+function enrollLearner(profileData={}){
+
+ const profile=
+  createLearnerProfile(profileData);
+
+ saveLearnerProfile(profile);
+
+ return profile;
+
+ }
+ /* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 10B: Administrator enrollment screen
+   ========================================================= */
+
+function enrollmentPage(){
+
+ return `
+ <div class="card">
+
+  <h2>Enroll New Learner</h2>
+
+  <p>
+   Create a new learner profile and generate a
+   permanent Learner ID.
+  </p>
+
+  <div class="grid">
+
+   <label class="span6">
+    First name
+    <input id="enrollFirstName">
+   </label>
+
+   <label class="span6">
+    Middle name
+    <input id="enrollMiddleName">
+   </label>
+
+   <label class="span6">
+    Last name
+    <input id="enrollLastName">
+   </label>
+
+   <label class="span6">
+    Preferred name
+    <input id="enrollPreferredName">
+   </label>
+
+   <label class="span6">
+    Parent / Guardian name
+    <input id="enrollGuardianName">
+   </label>
+
+   <label class="span6">
+    Relationship
+    <input
+     id="enrollRelationship"
+     value="Parent / Guardian">
+   </label>
+
+   <label class="span6">
+    Parent / Guardian phone
+    <input id="enrollGuardianPhone">
+   </label>
+
+   <label class="span6">
+    Parent / Guardian email
+    <input
+     id="enrollGuardianEmail"
+     type="email">
+   </label>
+
+   <label class="span6">
+    Previous school
+    <input id="enrollSchoolName">
+   </label>
+
+   <label class="span6">
+    Level completed
+    <input id="enrollLevelCompleted">
+   </label>
+
+   <label class="span6">
+    Current level
+    <input id="enrollCurrentLevel">
+   </label>
+
+   <label class="span6">
+    Programme period
+    <input id="enrollProgrammePeriod">
+   </label>
+
+   <label class="span6">
+    Target level
+    <input id="enrollTargetLevel">
+   </label>
+
+   <label class="span6">
+    Target date
+    <input
+     id="enrollTargetDate"
+     type="date">
+   </label>
+
+   <label class="span12">
+    Learning goal
+    <textarea id="enrollGoal"></textarea>
+   </label>
+
+  </div>
+
+  <div class="actions">
+
+   <button
+    class="btn primary"
+    onclick="submitLearnerEnrollment()">
+    Enroll Learner
+   </button>
+
+  </div>
+
+ </div>
+ `;
+
+                       }
+ /* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 10B: Enrollment submission handler
+   ========================================================= */
+
+function submitLearnerEnrollment(){
+
+ const profile=
+  enrollLearner({
+
+   firstName:
+    document.getElementById(
+     'enrollFirstName'
+    ).value.trim(),
+
+   middleName:
+    document.getElementById(
+     'enrollMiddleName'
+    ).value.trim(),
+
+   lastName:
+    document.getElementById(
+     'enrollLastName'
+    ).value.trim(),
+
+   preferredName:
+    document.getElementById(
+     'enrollPreferredName'
+    ).value.trim(),
+
+   guardianName:
+    document.getElementById(
+     'enrollGuardianName'
+    ).value.trim(),
+
+   relationship:
+    document.getElementById(
+     'enrollRelationship'
+    ).value.trim(),
+
+   guardianPhone:
+    document.getElementById(
+     'enrollGuardianPhone'
+    ).value.trim(),
+
+   guardianEmail:
+    document.getElementById(
+     'enrollGuardianEmail'
+    ).value.trim(),
+
+   schoolName:
+    document.getElementById(
+     'enrollSchoolName'
+    ).value.trim(),
+
+   levelCompleted:
+    document.getElementById(
+     'enrollLevelCompleted'
+    ).value.trim(),
+
+   currentLevel:
+    document.getElementById(
+     'enrollCurrentLevel'
+    ).value.trim(),
+
+   programmePeriod:
+    document.getElementById(
+     'enrollProgrammePeriod'
+    ).value.trim(),
+
+   targetLevel:
+    document.getElementById(
+     'enrollTargetLevel'
+    ).value.trim(),
+
+   targetDate:
+    document.getElementById(
+     'enrollTargetDate'
+    ).value,
+
+   goal:
+    document.getElementById(
+     'enrollGoal'
+    ).value.trim()
+
+  });
+
+ alert(
+  'Learner enrolled successfully. Learner ID: ' +
+  profile.learnerId
+ );
 
  }
 let recorder=null;
