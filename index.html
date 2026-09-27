@@ -589,6 +589,21 @@ function createLearnerProfile(profileData={}){
  return profile;
 
  }
+ /* =========================================================
+   PHASE 1 — LEARNER IDENTITY
+   Step 10A: Administrator enrollment action
+   ========================================================= */
+
+function enrollLearner(profileData={}){
+
+ const profile=
+  createLearnerProfile(profileData);
+
+ saveLearnerProfile(profile);
+
+ return profile;
+
+ }
 let recorder=null;
 let recordingChunks=[];
 let audioDB=null;
