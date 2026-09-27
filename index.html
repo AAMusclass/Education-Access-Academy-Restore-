@@ -604,94 +604,6 @@ function enrollLearner(profileData={}){
  return profile;
 
  }
- function submitLearnerEnrollment(){
-
- const profile=
-  enrollLearner({
-
-   firstName:
-    document.getElementById(
-     'enrollFirstName'
-    ).value.trim(),
-
-   middleName:
-    document.getElementById(
-     'enrollMiddleName'
-    ).value.trim(),
-
-   lastName:
-    document.getElementById(
-     'enrollLastName'
-    ).value.trim(),
-
-   preferredName:
-    document.getElementById(
-     'enrollPreferredName'
-    ).value.trim(),
-
-   guardianName:
-    document.getElementById(
-     'enrollGuardianName'
-    ).value.trim(),
-
-   relationship:
-    document.getElementById(
-     'enrollRelationship'
-    ).value.trim(),
-
-   guardianPhone:
-    document.getElementById(
-     'enrollGuardianPhone'
-    ).value.trim(),
-
-   guardianEmail:
-    document.getElementById(
-     'enrollGuardianEmail'
-    ).value.trim(),
-
-   schoolName:
-    document.getElementById(
-     'enrollSchoolName'
-    ).value.trim(),
-
-   levelCompleted:
-    document.getElementById(
-     'enrollLevelCompleted'
-    ).value.trim(),
-
-   currentLevel:
-    document.getElementById(
-     'enrollCurrentLevel'
-    ).value.trim(),
-
-   programmePeriod:
-    document.getElementById(
-     'enrollProgrammePeriod'
-    ).value.trim(),
-
-   targetLevel:
-    document.getElementById(
-     'enrollTargetLevel'
-    ).value.trim(),
-
-   targetDate:
-    document.getElementById(
-     'enrollTargetDate'
-    ).value,
-
-   goal:
-    document.getElementById(
-     'enrollGoal'
-    ).value.trim()
-
-  });
-
- alert(
-  'Learner enrolled successfully. Learner ID: ' +
-  profile.learnerId
- );
-
- }
 let recorder=null;
 let recordingChunks=[];
 let audioDB=null;
@@ -1535,7 +1447,7 @@ function mathWeek1(){
    Do not simply read the lesson. Explain it in your own words.`,
 
   apply:
-   `MY COMMUNITY MATHEATICS INVESTIGATION
+   `MY COMMUNITY MATHEMATICS INVESTIGATION
 
    Choose ONE real situation:
 
@@ -1679,7 +1591,6 @@ function render(){
 
   <nav class="nav">
   ${[
-    {[
     'dashboard',
     'curriculum',
     'evidence',
@@ -1687,7 +1598,7 @@ function render(){
     'assessment',
     'journal',
     'parent',
-    'profile',
+    'profile'
   ].map(x=>
     `<button class="${state.page===x?'active':''}" onclick="go('${x}')">${label(x)}</button>`
    ).join('')}
@@ -1716,18 +1627,18 @@ voice:'Voice Studio',
  })[x]||x;
 }
 
- function page(){
+function page(){
  switch(state.page){
   case'curriculum':return curriculumPage();
-  case'evidence':return evidencePage();
-  case'voice':return voicePage();
+case'evidence':return evidencePage();
+case'voice':return voicePage();
   case'assessment':return assessmentPage();
   case'journal':return journalPage();
   case'parent':return parentPage();
   case'profile':return profilePage();
   default:return dashboardPage();
  }
- }
+}
 
 function dashboardPage(){
  const units=90;
