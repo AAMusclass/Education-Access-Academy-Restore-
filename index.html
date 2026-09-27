@@ -1824,6 +1824,7 @@ voice:'Voice Studio',
 }
 
 function page(){
+function page(){
  switch(state.page){
   case'curriculum':return curriculumPage();
   case'evidence':return evidencePage();
@@ -1834,7 +1835,8 @@ function page(){
   case'profile':return profilePage();
   case'enrollment':return enrollmentPage();
   default:return dashboardPage();
-
+ }
+}
 function dashboardPage(){
  const units=90;
  const completed=Object.keys(state.completed).length;
