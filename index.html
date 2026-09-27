@@ -1688,7 +1688,6 @@ function render(){
     'journal',
     'parent',
     'profile',
-    'enrollment'
   ].map(x=>
     `<button class="${state.page===x?'active':''}" onclick="go('${x}')">${label(x)}</button>`
    ).join('')}
